@@ -19,7 +19,7 @@ class GetInputs
             $filePathBeginning ??= $root;
             $options = collect(glob($filePathBeginning . '/*'))
                 ->filter(fn($path) => is_dir($path) || str_ends_with($path, '.php'))
-                ->mapWithKeys(fn($option) => [$option => $option])
+                ->mapWithKeys(fn($option) => [$option => str_replace($root. '/', '',$option)])
                 ->when($filePathBeginning !== $root, fn($optionsList) => $optionsList->merge(['back' => 'Go Back']))
                 ->toArray();
             $selected = select('Please select a file', options: $options, scroll: 25);
