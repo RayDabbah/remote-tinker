@@ -3,7 +3,7 @@ return [
     'remotes' => [
         'production' => [
             'directory' => 'allwaysusa.com',
-            'url'       => 'ship-staging.com',
+            'url'       => 'allwaysusa.com',
             'user'      => 'forge',
         ],
         'staging'    => [

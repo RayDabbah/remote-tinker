@@ -5,6 +5,7 @@ use function Laravel\Prompts\note;
 use function Laravel\Prompts\spin;
 
 require __DIR__ . '/vendor/autoload.php';
+
 $config = (require __DIR__ . '/config.php')['remotes'];
 $data = \App\GetInputs::run($config);
 if (!$data) {
@@ -25,7 +26,7 @@ ssh {$user}@$url  "cd $fileDestination && php artisan tinker --execute='require(
 COMMAND;
 
 
-spin(fn() => info(`$runCommand`), 'Executing your code. Hold tight...');
+spin(fn() => info((string)`$runCommand`), 'Executing your code. Hold tight...');
 
 
 
