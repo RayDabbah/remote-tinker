@@ -1,4 +1,12 @@
 {
+  "name": "raydabbah/remote-tinker",
+  "description": "Run local files on a remote instance of a Laravel application",
+  "authors": [
+    {
+      "name": "raydabbah",
+      "email": "raydabbah@gmail.com"
+    }
+  ],
   "require": {
     "php": "^8.2",
     "laravel/prompts": "^0.1.15"
