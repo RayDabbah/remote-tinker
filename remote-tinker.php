@@ -6,14 +6,21 @@ use function Laravel\Prompts\spin;
 
 require __DIR__ . '/vendor/autoload.php';
 
+var_dump($argv, $argc);
+
 $config = (require __DIR__ . '/config.php')['remotes'];
-$data = \App\GetInputs::run($config);
+$data = RemoteTinker\GetInputs::run($config);
 if (!$data) {
     return;
 }
+
 $locationData = $config[$data['env']];
+
 $user = $locationData['user'];
+
 $fileDestination = sprintf("/home/%s/%s", $user, $locationData['directory']);
+
+
 
 $fileName = sha1(microtime(true)) . '.php';
 
@@ -24,7 +31,6 @@ echo `scp {$data['filePath']} {$user}@$url:$fileDestination/$fileName`;
 $runCommand =  <<<COMMAND
 ssh {$user}@$url  "cd $fileDestination && php artisan tinker --execute='require(\"{$fileName}\")'"
 COMMAND;
-
 
 spin(fn() => info((string)`$runCommand`), 'Executing your code. Hold tight...');
 

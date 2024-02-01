@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace RemoteTinker;
 
 use function Laravel\Prompts\info;
 use function Laravel\Prompts\select;
