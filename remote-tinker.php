@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
 use function Laravel\Prompts\info;
