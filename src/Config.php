@@ -25,6 +25,12 @@ class Config
         }
     }
 
+    public static function setup()
+    {
+
+        
+    }
+
     public static function get($key)
     {
 
