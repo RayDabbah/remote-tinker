@@ -28,7 +28,7 @@ class Config
     public static function get($key)
     {
 
-        return
+        return;
     }
 
 }
