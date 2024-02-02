@@ -15,5 +15,6 @@
     "psr-4": {
       "RemoteTinker\\": "src/"
     }
-  }
+  },
+  "bin": ["remote-tinker.php"]
 }
