@@ -4,10 +4,9 @@
 use RemoteTinker\Config;
 use RemoteTinker\RunOnRemote;
 use function Laravel\Prompts\error;
-use function Laravel\Prompts\note;
-use function Laravel\Prompts\spin;
+use function Laravel\Prompts\info;
 
-require __DIR__ . '/vendor/autoload.php';
+require $_composer_autoload_path ?? (__DIR__ . '/vendor/autoload.php');
 
 switch ($argv[1] ?? null) {
 
@@ -17,14 +16,24 @@ switch ($argv[1] ?? null) {
 
         break;
 
-    case 'config':
+    case 'setup':
 
         Config::setup();
 
         break;
+    case 'help':
+    case '--help':
+    case '-h':
+
+        info("Remote tinker help:");
+        info("Run a local file in Tinker on a remote server");
+        info("help: Display this message");
+        info("setup: Set up your remote servers");
+
+        break;
 
     default:
-        error('Invalid command');
+        error('Invalid command. Try --help');
 
         return 1;
 
