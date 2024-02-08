@@ -3,6 +3,7 @@
 
 use RemoteTinker\Config;
 use RemoteTinker\RunOnRemote;
+use RemoteTinker\SetConfig;
 use function Laravel\Prompts\error;
 use function Laravel\Prompts\info;
 
@@ -17,15 +18,16 @@ switch ($argv[1] ?? null) {
         break;
 
     case 'setup':
+    case 'config':
 
-        Config::setup();
+        (new  SetConfig)->setup();
 
         break;
     case 'help':
     case '--help':
     case '-h':
 
-        info("Remote tinker help:");
+        info("Remote tinker:");
         info("Run a local file in Tinker on a remote server");
         info("help: Display this message");
         info("setup: Set up your remote servers");

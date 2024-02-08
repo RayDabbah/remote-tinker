@@ -2,6 +2,8 @@
 
 namespace RemoteTinker;
 
+use Illuminate\Support\Arr;
+
 class Config
 {
 
@@ -27,8 +29,16 @@ class Config
     public function set($key, $data): void
     {
 
+        Arr::set($this->data, $key, $data);
 
-        $this->data = [...$this->data, $key => $data];
+        file_put_contents($this->configFilePath, json_encode($this->data));
+
+    }
+
+    public function remove($key): void
+    {
+
+        Arr::forget($this->data, $key);
 
         file_put_contents($this->configFilePath, json_encode($this->data));
 

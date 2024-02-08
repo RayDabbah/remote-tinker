@@ -9,12 +9,28 @@ use function Laravel\Prompts\spin;
 class RunOnRemote
 {
 
+    private Config $config;
+
+
+    public function __construct()
+    {
+
+        $this->config = new Config();
+    }
 
     public function __invoke(): void
     {
 
-        $config = (require __DIR__ . '/../config.php')['remotes'];
+        $config = $this->config->get()['remotes'] ?? null;
+
+
+        if(!$config){
+            (new SetConfig())->setup();
+        }
+
+
         $data = GetInputs::run($config);
+
         if (!$data) {
             return;
         }
