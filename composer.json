@@ -16,5 +16,5 @@
       "RemoteTinker\\": "src/"
     }
   },
-  "bin": ["remote-tinker.php"]
+  "bin": ["remote-tinker"]
 }
