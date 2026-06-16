@@ -9,11 +9,26 @@ use function Laravel\Prompts\info;
 
 require $_composer_autoload_path ?? (__DIR__ . '/vendor/autoload.php');
 
-switch ($argv[1] ?? null) {
+$args = array_slice($argv, 1);
+$flags = array_values(array_filter($args, fn($a) => str_starts_with($a, '-')));
+$command = null;
+
+foreach ($args as $a) {
+    if (!str_starts_with($a, '-')) {
+        $command = $a;
+        break;
+    }
+}
+
+if ($command === null && (in_array('--help', $flags, true) || in_array('-h', $flags, true))) {
+    $command = 'help';
+}
+
+switch ($command) {
 
     case null:
 
-        (new RunOnRemote())();
+        (new RunOnRemote())($flags);
 
         break;
 
@@ -24,13 +39,18 @@ switch ($argv[1] ?? null) {
 
         break;
     case 'help':
-    case '--help':
-    case '-h':
 
         info("Remote tinker:");
         info("Run a local file in Tinker on a remote server");
-        info("help: Display this message");
-        info("setup: Set up your remote servers");
+        info("");
+        info("Commands:");
+        info("  (no command)  Run the interactive runner");
+        info("  setup         Configure remote servers");
+        info("  help          Display this message");
+        info("");
+        info("Flags (with no command):");
+        info("  --return-files     Pull output files back from REMOTE_TINKER_OUTPUT_DIR after the run");
+        info("  --no-return-files  Skip the file-pull prompt entirely");
 
         break;
 
@@ -41,4 +61,3 @@ switch ($argv[1] ?? null) {
 
 
 }
-
