@@ -100,10 +100,16 @@ class RunOnRemote
             mkdir($localDest, 0755, recursive: true);
         }
 
-        $hasFiles = trim((string)`ssh {$user}@$url "ls -A {$outputDirRemote} 2>/dev/null"`);
+        $fileList = trim((string)`ssh {$user}@$url "ls -A {$outputDirRemote} 2>/dev/null"`);
 
-        if ($hasFiles !== '') {
-            echo `scp -r {$user}@$url:{$outputDirRemote}/. {$localDest}/`;
+        if ($fileList !== '') {
+            foreach (preg_split('/\s+/', $fileList) as $name) {
+                if ($name === '') {
+                    continue;
+                }
+                $remotePath = escapeshellarg("{$outputDirRemote}/{$name}");
+                echo `scp -r -O {$user}@$url:{$remotePath} {$localDest}/`;
+            }
             info("Output files pulled to: {$localDest}");
         } else {
             warning('No output files were written by the script.');
