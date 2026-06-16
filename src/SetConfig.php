@@ -69,7 +69,15 @@ class SetConfig
 
         $isProduction = confirm('Is this a production environment?', default: false);
 
-        $this->config->set('remotes.' . $serverName, compact('url', 'user', 'isProduction', 'directory'));
+        $alwaysReturnFiles = confirm(
+            'Always pull output files back from this remote? (Sets REMOTE_TINKER_OUTPUT_DIR on every run.)',
+            default: false,
+        );
+
+        $this->config->set(
+            'remotes.' . $serverName,
+            compact('url', 'user', 'isProduction', 'directory', 'alwaysReturnFiles'),
+        );
 
         outro(ucfirst($serverName . ' set successfully!'));
 
